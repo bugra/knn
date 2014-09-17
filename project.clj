@@ -1,6 +1,6 @@
 (defproject knn "0.1.0-SNAPSHOT"
   :description "knn: K-Nearests Nieghbor Classifier"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/bugra/knn"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :main knn.core
