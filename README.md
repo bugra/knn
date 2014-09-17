@@ -1,6 +1,7 @@
 ![Lisp Cycles](http://imgs.xkcd.com/comics/lisp_cycles.png "These are your father's parentheses")
 
 # knn
+[![Clojars Project](http://clojars.org/knn/latest-version.svg)](http://clojars.org/knn)
 
 knn is a k nearest neigbor classifier module written in pure Clojure. It supports a variety of distance functions out of the box, listed below. It has full test coverage.
 
