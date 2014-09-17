@@ -6,7 +6,14 @@ knn is a k nearest neigbor classifier module written in pure Clojure. It support
 
 ## Usage
 
-FIXME
+```clojure
+(use ‘[knn.core :refer :all])
+(use ‘[knn.distance :refer :all])
+(def neighbors 3)
+; After loading training data and test data into vectors(the observation vectors need to be same size)
+; Predictions are the vector that has the class predictions for each observation
+(def predictions (predict training-data test-data manhattan-distance neighbors)
+```
 
 ## License
 
