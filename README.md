@@ -2,7 +2,7 @@
 
 # knn
 [![Clojars Project](http://clojars.org/knn/latest-version.svg)](http://clojars.org/knn)
-[!TravisCI](http://img.shields.io/travis/bugra/knn.svg?style=flat)
+[![TravisCI](http://img.shields.io/travis/bugra/knn.svg?style=flat)](https://travis-ci.org/bugra/knn)
 
 knn is a k nearest neighbor classifier library written in Clojure. 
 It supports a variety of distance functions out of the box, listed below. 
