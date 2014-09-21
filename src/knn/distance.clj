@@ -1,8 +1,3 @@
-;; Minkowski distance is implemented twice,
-;; need to check if both of them are correct
-;; and if they do, prefer the simpler implementation
-
-
 (ns knn.distance)
 (use '[knn.op :as op])
 (use '[knn.norm :as norm])
@@ -111,13 +106,11 @@
   (let [m (op/scalar-div (op/add first-vector second-vector) 2)]
     (+ (kl-divergence first-vector m) (kl-divergence second-vector m))))
 
-
 (defn span-norm-distance
   "Span-norm distance between two vectors
   Formula: max(x - y) - min(x - y)"
   [first-vector second-vector]
   (- (apply max (op/subtract first-vector second-vector)) (apply min (op/subtract first-vector second-vector))))
-
 
 (defn bhattacharyya-distance
   "Bhattacharyya Distance between two vectors
