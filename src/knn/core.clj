@@ -1,7 +1,8 @@
 (ns knn.core)
 
 (use '[knn.distance :as distance])
-(use 'clojure.java.io)
+(use '[clojure.java.io :as io])
+(use '[clojure.string :as string])
 
 ; Observation is the abstraction layer that captures observation with label
 (defstruct observation :label :observation)
@@ -11,7 +12,9 @@
   [v value]
   (count (filter (partial == value) v)))
 
-(defn- majority-label
+(defn-
+
+majority-label
   "Labeling schema among observations"
   [observations]
   (last (sort-by (partial counter (map :label observations)) (set (map :label observations)))))
@@ -40,7 +43,7 @@
   "Return the file contents in the form of a vector
   where every line is an element"
   [file-path]
-  (with-open [x (reader file-path)]
+  (with-open [x (io/reader file-path)]
     (vec (line-seq x))))
 
 (defn parse-line
@@ -48,14 +51,54 @@
   [line]
   (#(struct observation (first %) (rest %)) (map #(Float/parseFloat %) (.split line " "))))
 
+(defn parse-vector
+  "Parse vector into label and observation"
+  [v]
+  (#(struct observation (first %) (rest %)) v))
+
+(defn read-csv
+  "Read csv file"
+  [file-path delimiter]
+  (with-open [rd (io/reader (io/file file-path))]
+  (->> (line-seq rd)
+       (map #(.split ^String % delimiter))
+       (mapv vec))))
+
+(defn- convert-iris-labels
+  "Convert Iris Labels into integer
+  equivalents"
+  [label]
+  (cond
+    (= label "Iris-setosa") 0.0
+    (= label "Iris-versicolor") 1.0
+    (= label "Iris-virginica") 2.0
+   ))
+
+(defn- get-iris-dataset
+  "Convert Iris Dataset in the form of
+  label observations"
+  [iris-file-path]
+  (let [iris-dataset (read-csv iris-file-path ",")
+        iris-labels (map  convert-iris-labels (map last iris-dataset))
+        iris-observations (map #(into [] (butlast %)) iris-dataset)]
+    (map parse-vector (map #(into [] %) (map cons iris-labels iris-observations)))))
+
 (defn -main
   "Main Function"
   [& args]
+
   (def train-file-path "data/train.txt")
   (def test-file-path "data/test.txt")
+  (def iris-file-path "data/iris.csv")
+  ; Number of nearest neighbors
   (def k 5)
   (def training (vec (map parse-line (read-lines train-file-path))))
   (def test-data (vec (map parse-line (read-lines test-file-path))))
-  (println training)
-  (println test-data)
-  (println (predict training test-data distance/euclidean-distance 3)))
+  ; Basic dataset predictions
+  (println (predict training test-data distance/euclidean-distance k))
+  ; Prediction on Iris dataset
+  (def iris-data (get-iris-dataset iris-file-path))
+  (println (map #(map double %) (map :observation iris-data)))
+
+  ;(predict iris-data iris-data distance/euclidean-distance k))
+  )
