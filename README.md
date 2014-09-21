@@ -38,7 +38,7 @@ Adapted from [Distances.jl](https://github.com/JuliaStats/Distances.jl)
 |  Squared Euclidean   |  `(squared-euclidean-distance x y)`      | sum((x - y).^2) |
 |  Manhattan (L_1)     |  `(manhattan-distance x y)`              | sum(abs(x - y)) |
 |  Chebyshev           |  `(chebyshev-distance x y)`              | max(abs(x - y)) |
-|  Minkowski           |  `(minkowski-distance x y p)`            | sum(abs(x - y).^p) ^ (1/p) |
+|  Minkowski (L_P)     |  `(minkowski-distance x y p)`            | sum(abs(x - y).^p) ^ (1/p) |
 |  Hamming             |  `(hamming-distance x y)`                | sum(x .!= y) |
 |  Cosine              |  `(cosine-distance x y)`                 | 1 - dot(x, y) / (norm(x) * norm(y)) |
 |  Correlation         |  `(correlation-distance x y)`            | cosine_dist(x - mean(x), y - mean(y)) |
