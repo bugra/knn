@@ -2865,49 +2865,71 @@ net.brehaut.ClojureTools = (function (SH) {
     build_tree: build_tree
   };
 })(SyntaxHighlighter);
-</script><title>knn -- Marginalia</title></head><body><table><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#knn.distance" name="knn.distance"><h1 class="project-name">knn.distance</h1><a class="toc-link" href="toc.html">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Minkowski distance is implemented twice,
-need to check if both of them are correct
-and if they do, prefer the simpler implementation</p>
-</td><td class="codes"></td></tr><tr><td class="docs">
+</script><title>knn -- Marginalia</title></head><body><table><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#knn.distance" name="knn.distance"><h1 class="project-name">knn.distance</h1><a class="toc-link" href="toc.html">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns knn.distance)
 (use '[knn.op :as op])
 (use '[knn.norm :as norm])</pre></td></tr><tr><td class="docs"><p>Util Function to be used to compute Bray Curtis Distance
   Function between two vectors</p>
 </td><td class="codes"><pre class="brush: clojure">(defn- bray-curtis-distance-denominator
   [first-vector second-vector]
-  (reduce + (map #(Math/abs (+ %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Manhattan Distance between two vectors, called l_1 distance as well
-  Formula: sum(abs(x - y))</p>
+  (reduce + (map #(Math/abs (+ %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Manhattan Distance between two vectors, called l_1 distance as well</p>
+
+<p>  Formula: sum(abs(x - y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn manhattan-distance
+  &quot;Manhattan Distance between two vectors, called l_1 distance as well\n
+  Formula: sum(abs(x - y))&quot;
   [first-vector second-vector]
-  (reduce + (map #(Math/abs (- %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Euclidean distance between two vectors
-  Formula: sqrt(sum((x - y) .^ 2))</p>
+  (reduce + (map #(Math/abs (- %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Euclidean distance between two vectors</p>
+
+<p>  Formula: sqrt(sum((x - y) .^ 2))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn euclidean-distance
+  &quot;Euclidean distance between two vectors\n
+  Formula: sqrt(sum((x - y) .^ 2))&quot;
   [first-vector second-vector]
-  (Math/sqrt (reduce + (map #(Math/pow (- %1 %2) 2) first-vector second-vector))))</pre></td></tr><tr><td class="docs"><p>Squared Euclidean Distance between two vectors
-  Formula: sum((x - y) .^ 2)</p>
+  (Math/sqrt (reduce + (map #(Math/pow (- %1 %2) 2) first-vector second-vector))))</pre></td></tr><tr><td class="docs"><p>Squared Euclidean Distance between two vectors</p>
+
+<p>  Formula: sum((x - y) .^ 2)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn squared-euclidean-distance
+  &quot;Squared Euclidean Distance between two vectors\n
+  Formula: sum((x - y) .^ 2)&quot;
   [first-vector second-vector]
   (* (euclidean-distance first-vector second-vector) (euclidean-distance first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Minkowski Distance, known as l-p distance
   Most Generic form of l-p distances, covers l_1(manhattan)
-  and l_2(euclidean distances) as well
-  Formula: sum(abs(x - y).^p) ^ (1/p)</p>
+  and l_2(euclidean distances) as well</p>
+
+<p>  Formula: sum(abs(x - y).^p) ^ (1/p)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn minkowski-distance
+  &quot;Minkowski Distance, known as l-p distance
+  Most Generic form of l-p distances, covers l_1(manhattan)
+  and l_2(euclidean distances) as well\n
+  Formula: sum(abs(x - y).^p) ^ (1/p)&quot;
   [first-vector second-vector p]
   (Math/pow (reduce + (map #(Math/pow (Math/abs (- %1 %2)) p) first-vector second-vector)) (/ p)))</pre></td></tr><tr><td class="docs"><p>Weighted Minkowski Distance, with different weights
-  on the difference between observations
-  Formula: sum(abs(x - y).^p .* w) ^ (1/p)</p>
+  on the difference between observations</p>
+
+<p>  Formula: sum(abs(x - y).^p .* w) ^ (1/p)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn weighted-minkowski-distance
+  &quot;Weighted Minkowski Distance, with different weights
+  on the difference between observations\n
+  Formula: sum(abs(x - y).^p .* w) ^ (1/p)&quot;
   [first-vector second-vector weight-vector p]
   (Math/pow
    (reduce + (map #(* (Math/pow (Math/abs (- %1 %2)) p) %3) first-vector second-vector weight-vector))
    (/ p)))</pre></td></tr><tr><td class="docs"><p>Chebyshev Distance
-  It is a form of l_p distance when p -> /Infinity
-  Formula: max(abs(x - y))</p>
+  It is a form of l_p distance when p -> /Infinity</p>
+
+<p>  Formula: max(abs(x - y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn chebyshev-distance
+  &quot;Chebyshev Distance
+  It is a form of l_p distance when p -&gt; /Infinity\n
+  Formula: max(abs(x - y))&quot;
   [first-vector second-vector]
-  (apply max (map #(Math/abs (- %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Hamming Distance between two vectors
-  Formula: sum(x .!= y)</p>
+  (apply max (map #(Math/abs (- %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Hamming Distance between two vectors</p>
+
+<p>  Formula: sum(x .!= y)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn hamming-distance
+  &quot;Hamming Distance between two vectors\n
+  Formula: sum(x .!= y)&quot;
   [first-vector second-vector]
   (count
    (filter true? (map #(not= %1 %2) first-vector second-vector))))</pre></td></tr><tr><td class="docs"><p>Bray Curtis Distance Function</p>
@@ -2916,40 +2938,62 @@ and if they do, prefer the simpler implementation</p>
   (/ (manhattan-distance first-vector second-vector) (bray-curtis-distance-denominator first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Canberra Distance</p>
 </td><td class="codes"><pre class="brush: clojure">(defn canberra-distance
   [first-vector second-vector]
-  (reduce + (map #(/ (Math/abs (- %1 %2)) (+ (Math/abs %1) (Math/abs %2))) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Cosine distance between two vectors
-  Formula: 1 - dot(x, y) / (norm(x) * norm(y))</p>
+  (reduce + (map #(/ (Math/abs (- %1 %2)) (+ (Math/abs %1) (Math/abs %2))) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Cosine distance between two vectors</p>
+
+<p>  Formula: 1 - dot(x, y) / (norm(x) * norm(y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn cosine-distance
+  &quot;Cosine distance between two vectors\n
+  Formula: 1 - dot(x, y) / (norm(x) * norm(y))&quot;
   [first-vector second-vector]
-  (- 1 (/ (op/dot first-vector second-vector) (* (norm/euclidean-norm first-vector) (norm/euclidean-norm second-vector) ))))</pre></td></tr><tr><td class="docs"><p>Correlation distance between two vectors
-  Formula: cosine-distance(x - mean(x), y - mean(y))</p>
+  (- 1 (/ (op/dot first-vector second-vector) (* (norm/euclidean-norm first-vector) (norm/euclidean-norm second-vector) ))))</pre></td></tr><tr><td class="docs"><p>Correlation distance between two vectors</p>
+
+<p>  Formula: cosine-distance(x - mean(x), y - mean(y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn correlation-distance
+  &quot;Correlation distance between two vectors\n
+  Formula: cosine-distance(x - mean(x), y - mean(y))&quot;
   [first-vector second-vector]
   (cosine-distance (op/scalar-subtract first-vector (op/mean first-vector))
-                   (op/scalar-subtract second-vector (op/mean second-vector))))</pre></td></tr><tr><td class="docs"><p>Chi Squared Distance between two vectors
-  Formula: sum((x - y).^2 / (x + y))</p>
+                   (op/scalar-subtract second-vector (op/mean second-vector))))</pre></td></tr><tr><td class="docs"><p>Chi Squared Distance between two vectors</p>
+
+<p>  Formula: sum((x - y).^2 / (x + y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn chi-squared-distance
+  &quot;Chi Squared Distance between two vectors\n
+  Formula: sum((x - y).^2 / (x + y))&quot;
   [first-vector second-vector]
   (reduce + (map #(/ (* (- %1 %2) (- %1 %2) ) (+ %1 %2)) first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Kullback-Leibler Divergence of two vectors with a function
   that is mapped to the ratio</p>
 </td><td class="codes"><pre class="brush: clojure">(defn- kl-div
   [first-vector second-vector func]
-  (reduce + (op/mult first-vector (map func (op/div first-vector second-vector)))))</pre></td></tr><tr><td class="docs"><p>Kullback-Leibler Divergence with a normal Log function
-  Formula: sum(p .* log(p ./ q))</p>
+  (reduce + (op/mult first-vector (map func (op/div first-vector second-vector)))))</pre></td></tr><tr><td class="docs"><p>Kullback-Leibler Divergence with a normal Log function</p>
+
+<p>  Formula: sum(p .* log(p ./ q))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn kl-divergence
+  &quot;Kullback-Leibler Divergence with a normal Log function\n
+  Formula: sum(p .* log(p ./ q))&quot;
   [first-vector second-vector]
-  (kl-div first-vector second-vector #(Math/log %)))</pre></td></tr><tr><td class="docs"><p>JS Divergence of two vectors
-  Formula: KL(x, m) / 2 + KL(y, m) / 2 where
+  (kl-div first-vector second-vector #(Math/log %)))</pre></td></tr><tr><td class="docs"><p>JS Divergence of two vectors</p>
+
+<p>  Formula: KL(x, m) / 2 + KL(y, m) / 2 where
   m = (x + y) / 2</p>
 </td><td class="codes"><pre class="brush: clojure">(defn js-divergence
+  &quot;JS Divergence of two vectors\n
+  Formula: KL(x, m) / 2 + KL(y, m) / 2 where
+  m = (x + y) / 2&quot;
   [first-vector second-vector]
   (let [m (op/scalar-div (op/add first-vector second-vector) 2)]
-    (+ (kl-divergence first-vector m) (kl-divergence second-vector m))))</pre></td></tr><tr><td class="docs"><p>Span-norm distance between two vectors
-  Formula: max(x - y) - min(x - y)</p>
+    (+ (kl-divergence first-vector m) (kl-divergence second-vector m))))</pre></td></tr><tr><td class="docs"><p>Span-norm distance between two vectors</p>
+
+<p>  Formula: max(x - y) - min(x - y)</p>
 </td><td class="codes"><pre class="brush: clojure">(defn span-norm-distance
+  &quot;Span-norm distance between two vectors\n
+  Formula: max(x - y) - min(x - y)&quot;
   [first-vector second-vector]
-  (- (apply max (op/subtract first-vector second-vector)) (apply min (op/subtract first-vector second-vector))))</pre></td></tr><tr><td class="docs"><p>Bhattacharyya Distance between two vectors
-  Formula: -log(sum(sqrt(x .* y) / sqrt(sum(x) * sum(y)))</p>
+  (- (apply max (op/subtract first-vector second-vector)) (apply min (op/subtract first-vector second-vector))))</pre></td></tr><tr><td class="docs"><p>Bhattacharyya Distance between two vectors</p>
+
+<p>  Formula: -log(sum(sqrt(x .* y) / sqrt(sum(x) * sum(y)))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn bhattacharyya-distance
+  &quot;Bhattacharyya Distance between two vectors\n
+  Formula: -log(sum(sqrt(x .* y) / sqrt(sum(x) * sum(y)))&quot;
   [first-vector second-vector]
   (- (Math/log
       (reduce + (map #(/ (Math/sqrt (* %1 %2)) (Math/pow (* (reduce + first-vector)

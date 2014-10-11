@@ -2881,10 +2881,10 @@ net.brehaut.ClojureTools = (function (SH) {
   (map / first-vector second-vector))</pre></td></tr><tr><td class="docs"><p>Dot product of two vectors</p>
 </td><td class="codes"><pre class="brush: clojure">(defn dot
   [first-vector second-vector]
-  (reduce + (map * first-vector second-vector)))</pre></td></tr><tr><td class="docs">
+  (reduce + (map * first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Add a scalar to a vector</p>
 </td><td class="codes"><pre class="brush: clojure">(defn scalar-add
   [v scalar]
-  (map #(+ scalar %) v))</pre></td></tr><tr><td class="docs">
+  (map #(+ scalar %) v))</pre></td></tr><tr><td class="docs"><p>Subtract a scalar from a vector</p>
 </td><td class="codes"><pre class="brush: clojure">(defn scalar-subtract
   [v scalar]
   (map #(- % scalar) v))</pre></td></tr><tr><td class="docs"><p>Multiply a scalar with a vector by element-wise</p>
@@ -2899,7 +2899,7 @@ net.brehaut.ClojureTools = (function (SH) {
   (map #(max cmin (min cmax %)) v))</pre></td></tr><tr><td class="docs"><p>Mean of a vector</p>
 </td><td class="codes"><pre class="brush: clojure">(defn mean
   [v]
-  (/ (reduce + v) (count v)))</pre></td></tr><tr><td class="docs">
+  (/ (reduce + v) (count v)))</pre></td></tr><tr><td class="docs"><p>Moving average of a vector for a given window</p>
 </td><td class="codes"><pre class="brush: clojure">(defn moving-average
   [v window] (map mean (partition window 1 v)))</pre></td></tr><tr><td class="docs"><p>Returns element-wise squared version of the vector</p>
 </td><td class="codes"><pre class="brush: clojure">(defn squared
