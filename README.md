@@ -24,7 +24,7 @@ It has full test coverage.
 
 ### Generating Documentation
 After cloning the repo, in order to generate the documentation:  
-```clojure
+```bash
 ; For single page documentation(uberdoc.html)
 lein marg
 ; For multi page documentation(one page per module)
