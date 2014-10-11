@@ -26,10 +26,12 @@
   (reduce + (map * first-vector second-vector)))
 
 (defn scalar-add
+  "Add a scalar to a vector"
   [v scalar]
   (map #(+ scalar %) v))
 
 (defn scalar-subtract
+  "Subtract a scalar from a vector"
   [v scalar]
   (map #(- % scalar) v))
 
@@ -54,6 +56,7 @@
   (/ (reduce + v) (count v)))
 
 (defn moving-average
+  "Moving average of a vector for a given window"
   [v window] (map mean (partition window 1 v)))
 
 (defn squared
