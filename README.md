@@ -20,7 +20,10 @@ It has full test coverage.
 ```
 
 ## Documentation
-To produce the documentation:
+[Documentation Page](http://bugra.github.io/knn/)
+
+### Generating Documentation
+After cloning the repo, in order to generate the documentation:  
 ```clojure
 ; For single page documentation(uberdoc.html)
 lein marg
