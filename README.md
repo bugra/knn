@@ -19,6 +19,15 @@ It has full test coverage.
 (def predictions (predict training-data test-data manhattan-distance neighbors)
 ```
 
+## Documentation
+To produce the documentation:
+```clojure
+; For single page documentation(uberdoc.html)
+lein marg
+; For multi page documentation(one page per module)
+lein marg --multi
+```
+
 ## License
 
 Copyright © 2014 Bugra Akyildiz
