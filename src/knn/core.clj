@@ -12,9 +12,7 @@
   [v value]
   (count (filter (partial == value) v)))
 
-(defn-
-
-majority-label
+(defn- majority-label
   "Labeling schema among observations"
   [observations]
   (last (sort-by (partial counter (map :label observations)) (set (map :label observations)))))
@@ -25,15 +23,11 @@ majority-label
   (take k (sort-by #(distance-function (:observation observation)
 					(:observation %)) data)))
 
-; TODO
-; Factorization of matrix
 (defn- pairwise-distance-matrix
   "Pairwise distance matrix for observations"
   [vectors distance-function]
   (vec (map #(partial distance-function %) vectors)))
 
-; TODO
-; Make the labeling schema optional(all)
 (defn predict
   "Predict the example based on training"
   [training test-data distance-function k]
@@ -80,16 +74,14 @@ majority-label
   [iris-file-path]
   (let [iris-dataset (read-csv iris-file-path ",")
         iris-labels (map  convert-iris-labels (map last iris-dataset))
-        iris-observations (map #(into [] (butlast %)) iris-dataset)]
+        iris-observations (map #(into [] (map bigdec (butlast %))) iris-dataset)]
     (map parse-vector (map #(into [] %) (map cons iris-labels iris-observations)))))
 
 (defn -main
   "Main Function"
   [& args]
-
   (def train-file-path "data/train.txt")
   (def test-file-path "data/test.txt")
-  (def iris-file-path "data/iris.csv")
   ; Number of nearest neighbors
   (def k 5)
   (def training (vec (map parse-line (read-lines train-file-path))))
@@ -97,8 +89,7 @@ majority-label
   ; Basic dataset predictions
   (println (predict training test-data distance/euclidean-distance k))
   ; Prediction on Iris dataset
+  (def iris-file-path "data/iris.csv")
   (def iris-data (get-iris-dataset iris-file-path))
-  (println (map #(map double %) (map :observation iris-data)))
-
-  ;(predict iris-data iris-data distance/euclidean-distance k))
+  (def iris-predictions (predict iris-data iris-data distance/euclidean-distance k))
   )
