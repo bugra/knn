@@ -39,7 +39,9 @@ Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
 
 ## Future
-I am planning to support [PigPen](https://github.com/Netflix/PigPen) in future.
+- I am planning to support [PigPen](https://github.com/Netflix/PigPen) in future.
+- [KD -Trees](https://github.com/abscondment/clj-kdtree) integration in order to improve
+the speed even further.
 
 ### Supported Distance Functions and Formulas
 Adapted from [Distances.jl](https://github.com/JuliaStats/Distances.jl)
