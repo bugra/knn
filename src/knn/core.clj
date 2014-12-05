@@ -28,6 +28,24 @@
   [vectors distance-function]
   (vec (map #(partial distance-function %) vectors)))
 
+(defn weighted-labels
+  "Aggregated distance to each label based on a distance function"
+  [observations distance-function test-instance & {:keys [score-modifier]
+                                                   :or {score-modifier identity}}]
+  (apply merge-with +
+         (map #(hash-map (:label %)
+                         (score-modifier (distance-function (:observation test-instance)
+                                                            (:observation %)))) observations)))
+
+(defn score-labels
+  "Scores for each label based on the aggregation of distances.
+  A score modifier function can be selected to be applied to the distance for each instance.
+  For instance to convert the distance to a similarity "
+  [training test-data distance-function k & {:keys [score-modifier]
+                                             :or {score-modifier identity}}]
+  (map #(weighted-labels (nearest-neighbors % training distance-function k)
+                         distance-function % :score-modifier score-modifier) test-data))
+
 (defn predict
   "Predict the example based on training"
   [training test-data distance-function k]
