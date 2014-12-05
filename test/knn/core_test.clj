@@ -13,14 +13,14 @@
                          (struct observation "1" [2 3])
                          (struct observation "-1" [2 3])]
                          [(struct observation "1" [9 0])]
-                         euclidean-distance 1)
-           [{"1" 7.615773105863909}]))
+                         cosine-distance 1)
+           [{"1" 0.44529980377477085}]))
     (is (= (score-labels [(struct observation "1" [1 2])
                          (struct observation "1" [2 3])
-                         (struct observation "-1" [2 3])]
+                         (struct observation "-1" [9 3])]
                          [(struct observation "1" [9 0])]
-                         euclidean-distance 3)
-           [{"-1" 7.615773105863909, "1" 15.86198435709923}]))
+                         cosine-distance 3)
+           [{"-1" 0.05131670194948623, "1" 0.998086208274813}]))
     (is (= (score-labels [(struct observation "1" [1 2])
                          (struct observation "1" [2 3])
                          (struct observation "-1" [2 3])]
