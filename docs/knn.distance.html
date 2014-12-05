@@ -2868,7 +2868,8 @@ net.brehaut.ClojureTools = (function (SH) {
 </script><title>knn -- Marginalia</title></head><body><table><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#knn.distance" name="knn.distance"><h1 class="project-name">knn.distance</h1><a class="toc-link" href="toc.html">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns knn.distance)
 (use '[knn.op :as op])
-(use '[knn.norm :as norm])</pre></td></tr><tr><td class="docs"><p>Util Function to be used to compute Bray Curtis Distance
+(use '[knn.norm :as norm])
+(use '[knn.similarity :as similarity])</pre></td></tr><tr><td class="docs"><p>Util Function to be used to compute Bray Curtis Distance
   Function between two vectors</p>
 </td><td class="codes"><pre class="brush: clojure">(defn- bray-curtis-distance-denominator
   [first-vector second-vector]
@@ -2945,7 +2946,7 @@ net.brehaut.ClojureTools = (function (SH) {
   &quot;Cosine distance between two vectors\n
   Formula: 1 - dot(x, y) / (norm(x) * norm(y))&quot;
   [first-vector second-vector]
-  (- 1 (/ (op/dot first-vector second-vector) (* (norm/euclidean-norm first-vector) (norm/euclidean-norm second-vector) ))))</pre></td></tr><tr><td class="docs"><p>Correlation distance between two vectors</p>
+  (- 1 (similarity/cosine-similarity first-vector second-vector)))</pre></td></tr><tr><td class="docs"><p>Correlation distance between two vectors</p>
 
 <p>  Formula: cosine-distance(x - mean(x), y - mean(y))</p>
 </td><td class="codes"><pre class="brush: clojure">(defn correlation-distance

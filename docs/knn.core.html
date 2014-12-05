@@ -2883,7 +2883,21 @@ net.brehaut.ClojureTools = (function (SH) {
 					(:observation %)) data)))</pre></td></tr><tr><td class="docs"><p>Pairwise distance matrix for observations</p>
 </td><td class="codes"><pre class="brush: clojure">(defn- pairwise-distance-matrix
   [vectors distance-function]
-  (vec (map #(partial distance-function %) vectors)))</pre></td></tr><tr><td class="docs"><p>Predict the example based on training</p>
+  (vec (map #(partial distance-function %) vectors)))</pre></td></tr><tr><td class="docs"><p>Aggregated distance to each label based on a distance function</p>
+</td><td class="codes"><pre class="brush: clojure">(defn weighted-labels
+  [observations distance-function test-instance &amp; {:keys [score-modifier]
+                                                   :or {score-modifier identity}}]
+  (apply merge-with +
+         (map #(hash-map (:label %)
+                         (score-modifier (distance-function (:observation test-instance)
+                                                            (:observation %)))) observations)))</pre></td></tr><tr><td class="docs"><p>Scores for each label based on the aggregation of distances.
+  A score modifier function can be selected to be applied to the distance for each instance.
+  For instance to convert the distance to a similarity </p>
+</td><td class="codes"><pre class="brush: clojure">(defn score-labels
+  [training test-data distance-function k &amp; {:keys [score-modifier]
+                                             :or {score-modifier identity}}]
+  (map #(weighted-labels (nearest-neighbors % training distance-function k)
+                         distance-function % :score-modifier score-modifier) test-data))</pre></td></tr><tr><td class="docs"><p>Predict the example based on training</p>
 </td><td class="codes"><pre class="brush: clojure">(defn predict
   [training test-data distance-function k]
   (vec (map #(majority-label (nearest-neighbors % training distance-function k)) test-data)))</pre></td></tr><tr><td class="docs"><p>Return the file contents in the form of a vector
