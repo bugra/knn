@@ -1,6 +1,8 @@
 (ns knn.distance)
 (use '[knn.op :as op])
 (use '[knn.norm :as norm])
+(use '[knn.similarity :as similarity])
+
 
 (defn- bray-curtis-distance-denominator
   "Util Function to be used to compute Bray Curtis Distance
@@ -71,7 +73,7 @@
   "Cosine distance between two vectors\n
   Formula: 1 - dot(x, y) / (norm(x) * norm(y))"
   [first-vector second-vector]
-  (- 1 (/ (op/dot first-vector second-vector) (* (norm/euclidean-norm first-vector) (norm/euclidean-norm second-vector) ))))
+  (- 1 (similarity/cosine-similarity first-vector second-vector)))
 
 (defn correlation-distance
   "Correlation distance between two vectors\n
