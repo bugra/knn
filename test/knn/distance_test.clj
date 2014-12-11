@@ -1,8 +1,7 @@
 (ns knn.distance-test
   (:require [clojure.test :refer :all]
-            [knn.distance :refer :all]))
-
-(use '[knn.op :as op])
+            [knn.distance :refer :all]
+            [knn.op :as op]))
 
 ; Tests are adapted from:
 ; https://github.com/JuliaStats/Distance.jl/blob/master/test/test_dists.jl
