@@ -1,6 +1,5 @@
-(ns knn.norm)
-
-(use '[knn.op :as op])
+(ns knn.norm
+  (:require [knn.op :as op]))
 
 (defn manhattan-norm
   "Manhattan norm of a vector

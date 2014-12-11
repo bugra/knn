@@ -1,7 +1,7 @@
-(ns knn.distance)
-(use '[knn.op :as op])
-(use '[knn.norm :as norm])
-(use '[knn.similarity :as similarity])
+(ns knn.distance
+  (:require [knn.op :as op]
+            [knn.norm :as norm]
+            [knn.similarity :as similarity]))
 
 
 (defn- bray-curtis-distance-denominator

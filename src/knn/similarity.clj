@@ -1,6 +1,6 @@
-(ns knn.similarity)
-(use '[knn.op :as op])
-(use '[knn.norm :as norm])
+(ns knn.similarity
+  (:require [knn.op :as op]
+            [knn.norm :as norm]))
 
 (defn cosine-similarity
   "Cosine distance between two vectors\n

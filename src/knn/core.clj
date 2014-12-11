@@ -1,8 +1,7 @@
-(ns knn.core)
-
-(use '[knn.distance :as distance])
-(use '[clojure.java.io :as io])
-(use '[clojure.string :as string])
+(ns knn.core
+  (:require [knn.distance :as distance]
+            [clojure.java.io :as io]
+            [clojure.string :as string]))
 
 ; Observation is the abstraction layer that captures observation with label
 (defstruct observation :label :observation)
