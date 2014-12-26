@@ -1,4 +1,4 @@
-(defproject knn "0.1.1"
+(defproject knn "0.1.2"
   :description "knn: K-Nearests Nieghbor Classifier"
   :url "https://github.com/bugra/knn"
   :license {:name "Eclipse Public License"
